@@ -1,0 +1,280 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #f4f4f9;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+    background: #40425c;
+}
+
+.title h1{
+    color: white;
+}
+
+.tables {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 20px;
+}
+
+sup {
+    margin-bottom: 15px;
+}
+
+sub {
+    margin-top: 15px;
+}
+
+.main-column {
+    margin: 5px;
+    margin-left: 15px;
+    height: 600px;
+    flex: 2;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: #40425c #a5a8e7;
+    scroll-behavior: smooth;
+}
+
+.secondary-column {
+    height: 600px;
+    flex: 1;
+}
+
+.end-column {
+    height: 600px;
+    flex: 1;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: #40425c #a5a8e7;
+    margin-right: 15px;
+}
+
+table {
+    width: auto;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+caption {
+    font-size: 1.5em;
+    font-weight: bold;
+    padding: 10px;
+    background-color: #40425c;
+    color: white;
+    text-align: left;
+}
+
+th, td {
+    padding: 10px 15px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #f8f8f8;
+    font-weight: bold;
+}
+
+td input[type="number"] {
+    padding: 5px;
+    width: 80px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    text-align: center;
+}
+
+td input[type="number"]:focus {
+    border-color: #40425c;
+    outline: none;
+}
+
+.equation{
+    display: flex;
+    row-gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+button {
+    margin-top: 5px;
+    background-color: #7cabbc;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    font-size: 1em;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    height: 34px;
+}
+
+#up-button > * {
+  margin-top: 5px;
+  margin-left: 5px;
+  height: 34px;
+}
+
+#results{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.result-item {
+    width: auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    margin: 15px;
+    background: #bbc5de;
+    border-radius: 20px;
+}
+
+.result-item img {
+    flex: 1;
+    object-fit: contain;
+    height: auto;
+    min-width: 0;
+    max-width: 100%;
+    border-radius: 10px;
+    
+}
+
+.equation-list {
+    flex: 1;
+    min-width: 300px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    overflow-y: scroll;
+    height: 500px;
+    scrollbar-width: thin;
+    scrollbar-color: #40425c #a5a8e7;
+    scroll-behavior: smooth;
+}
+
+.equation-item {
+    padding: 12px 0;
+    margin: 0;
+    border-bottom: 2px dashed #ddd;
+}
+
+.equation-item:last-child {
+    border-bottom: none;
+}
+
+.param-name {
+    font-weight: 700;
+    color: #2c3e50;
+    font-family: 'Courier New', monospace;
+    margin-right: 8px;
+}
+
+.equation-text {
+    font-family: 'Courier New', monospace;
+    color: #34495e;
+    font-size: 0.9em;
+}
+
+#chanceInput{
+    padding: 10px;
+    width: 80px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+
+#threshold{
+    padding: 10px;
+    width: 80px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+
+#random{
+    width: 350px;
+    background-color: #40425c;
+}
+
+#random:hover{
+    background-color: #222332;
+}
+
+button:hover {
+    background-color: #3689a6;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+#random, #saveValuesToJson, #loadValuesFromJson {
+    margin-bottom: 10px;
+}
+
+#saveValuesToJson, #loadValuesFromJson {
+    width: 50px;
+}
+
+
+
+#calculate {
+    width: 20%;
+    height: 50px;
+    font-weight: bold;
+    background-color: #d85050;
+}
+
+#calculate:hover {
+    background-color: #8b2a2a;
+}
+
+div {
+}
+
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+
+    table {
+        width: 90%;
+        margin: 10px auto;
+    }
+
+    button {
+        width: auto;
+    }
+
+    div {
+        margin-right: 0;
+    }
+}

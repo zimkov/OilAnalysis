@@ -1,0 +1,101 @@
+{
+  "functionsInfo": [
+    {"func": 0, "variable": "10", "size": 4},
+    {"func": 1, "variable": "11", "size": 4},
+    {"func": 2, "variable": "14", "size": 4},
+
+
+
+    {"func": 3, "variable": "3", "size": 4},
+    {"func": 4, "variable": "7", "size": 4},
+    {"func": 5, "variable": "8", "size": 4},
+    {"func": 6, "variable": "9", "size": 4},
+    {"func": 7, "variable": "13", "size": 4},
+    {"func": 8, "variable": "10", "size": 4},
+    {"func": 9, "variable": "11", "size": 4},
+    {"func": 10, "variable": "14", "size": 4},
+    {"func": 11, "variable": "15", "size": 4},
+
+
+
+    {"func": 12, "variable": "1", "size": 4},
+    {"func": 13, "variable": "15", "size": 4},
+
+
+
+    {"func": 14, "variable": "1", "size": 4},
+
+
+
+    {"func": 15, "variable": "1", "size": 4},
+
+
+
+    {"func": 16, "variable": "4", "size": 4},
+    {"func": 17, "variable": "11", "size": 4},
+    {"func": 18, "variable": "12", "size": 4},
+    {"func": 19, "variable": "14", "size": 4},
+
+
+
+    {"func": 20, "variable": "5", "size": 4},
+    {"func": 21, "variable": "6", "size": 4},
+    {"func": 22, "variable": "13", "size": 4},
+    {"func": 23, "variable": "15", "size": 4},
+
+
+
+    {"func": 24, "variable": "5", "size": 4},
+    {"func": 25, "variable": "6", "size": 4},
+    {"func": 26, "variable": "11", "size": 4},
+    {"func": 27, "variable": "13", "size": 4},
+    {"func": 28, "variable": "14", "size": 4},
+    {"func": 29, "variable": "15", "size": 4},
+
+
+
+    {"func": 30, "variable": "3", "size": 4},
+    {"func": 31, "variable": "13", "size": 4},
+    {"func": 32, "variable": "10", "size": 4},
+    {"func": 33, "variable": "11", "size": 4},
+    {"func": 34, "variable": "14", "size": 4},
+
+
+
+    {"func": 35, "variable": "3", "size": 4},
+    {"func": 36, "variable": "9", "size": 4},
+    {"func": 37, "variable": "15", "size": 4},
+
+
+
+    {"func": 38, "variable": "3", "size": 4},
+    {"func": 39, "variable": "13", "size": 4},
+    {"func": 40, "variable": "14", "size": 4},
+    {"func": 41, "variable": "15", "size": 4},
+
+
+
+    {"func": 42, "variable": "11", "size": 4},
+    {"func": 43, "variable": "12", "size": 4},
+    {"func": 44, "variable": "14", "size": 4},
+    {"func": 45, "variable": "15", "size": 4},
+
+
+
+    {"func": 46, "variable": "2", "size": 4},
+    {"func": 47, "variable": "3", "size": 4},
+
+
+
+    {"func": 48, "variable": "11", "size": 4},
+    {"func": 49, "variable": "12", "size": 4},
+    {"func": 50, "variable": "13", "size": 4},
+
+
+
+    {"func": 51, "variable": "2", "size": 4},
+    {"func": 52, "variable": "3", "size": 4},
+    {"func": 53, "variable": "13", "size": 4},
+    {"func": 54, "variable": "14", "size": 4}
+  ]
+}
