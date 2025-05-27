@@ -67,44 +67,79 @@ async def calculate(startValues=Form(...), minValues=Form(...), maxValues=Form(.
     # 5. Финальный расчет с оптимизированными коэффициентами
     final_solution = calc.calculate(time_intervals)
 
-    # Разделение решения на отдельные переменные для удобства
-    L1, L2, L3, L4, L5, L6, L7, L8, L9, L10, L11, L12, L13, L14, L15 = final_solution.T
-
-    # Визуализация графика времени
-    fig1, ax1 = plt.subplots(figsize=(16, 8))  # Увеличиваем график
-
-    # Определяем все линии для удобства
-    lines = [
-        (L1, 'Время испарения'), (L2, 'Время ликвидации'), (L3, 'Площадь заражения'),
-        (L4, 'Время подхода облака'), (L5, 'Потери первичного облака'), (L6, 'Потери вторичного облака'),
-        (L7, 'Получившие амбулаторную помощь'), (L8, 'Размещенные в стационаре'), (L9, 'Количество поражённой техники'),
-        (L10, 'Растворы обеззараживания местности'), (L11, 'Силы и средства для спас. работ'), (L12, 'Эфф. системы оповещения'),
-        (L13, 'Людей в зоне поражения'), (L14, 'Спасателей в зоне поражения'), (L15, 'Развитость системы МЧС')
+# Список всех параметров с названиями
+    params = [
+        ('L1', 'Время испарения'),
+        ('L2', 'Время ликвидации'),
+        ('L3', 'Площадь заражения'),
+        ('L4', 'Время подхода облака'),
+        ('L5', 'Потери первичного облака'),
+        ('L6', 'Потери вторичного облака'),
+        ('L7', 'Получившие амбулаторную помощь'),
+        ('L8', 'Размещенные в стационаре'),
+        ('L9', 'Количество поражённой техники'),
+        ('L10', 'Растворы обеззараживания местности'),
+        ('L11', 'Силы и средства для спас. работ'),
+        ('L12', 'Эфф. системы оповещения'),
+        ('L13', 'Людей в зоне поражения'),
+        ('L14', 'Спасателей в зоне поражения'),
+        ('L15', 'Развитость системы МЧС')
     ]
 
-    # Строим линии графика
-    for L, label in lines:
-        ax1.plot(time_intervals, L, label=label)
+    # Создаем группы по 3 графика
+    group_size = 3
+    num_groups = (len(params) + group_size - 1) // group_size
+    plot_images = []
 
-    # Отображаем значения на графике
-    for L, label in lines:
-        for x, y in zip(time_intervals, L):
-            ax1.annotate(f'{y:.2f}', xy=(x, y), xytext=(5, 5), textcoords='offset points', fontsize=8)
+    for group_idx in range(num_groups):
+        # Создаем новую фигуру для группы
+        fig, axs = plt.subplots(group_size, 1, figsize=(16, 8 * group_size))
+        plt.subplots_adjust(hspace=0.5)
+        
+        # Получаем подмножество параметров для текущей группы
+        start_idx = group_idx * group_size
+        end_idx = min((group_idx + 1) * group_size, len(params))
+        group_params = params[start_idx:end_idx]
+        
+        # Строим графики для каждой группы
+        for idx, (param, ax) in enumerate(zip(group_params, axs.flatten())):
+            # Получаем данные для текущего параметра
+            param_idx = start_idx + idx
+            y_values = final_solution[:, param_idx]
+            
+            # Строим график
+            line, = ax.plot(time_intervals, y_values, 
+                        label=f'{param[0]}: {param[1]}',
+                        marker='o', markersize=5,
+                        linewidth=2, alpha=0.8)
+            
+            # Настройки оформления
+            ax.set_title(f'{param[0]}: {param[1]}', fontsize=12, pad=15)
+            ax.set_xlabel('Время', fontsize=10)
+            ax.set_ylabel('Значение', fontsize=10)
+            ax.grid(True, linestyle='--', alpha=0.6)
+            ax.legend(loc='upper right', fontsize=10)
+            
+            # Форматирование осей
+            ax.tick_params(axis='both', which='major', labelsize=8)
+            ax.set_ylim(calc.minValues[param_idx] * 0.9, calc.maxValues[param_idx] * 1.1)
+            
+            # Добавляем горизонтальные линии для min/max
+            ax.axhline(y=calc.minValues[param_idx], color='r', linestyle='--', linewidth=1)
+            ax.axhline(y=calc.maxValues[param_idx], color='g', linestyle='--', linewidth=1)
+        
+        # Удаляем пустые subplots
+        for ax in axs.flatten()[len(group_params):]:
+            fig.delaxes(ax)
+        
+        # Сохранение в буфер
+        buf = io.BytesIO()
+        fig.savefig(buf, format='png', bbox_inches='tight')
+        buf.seek(0)
+        plot_images.append(base64.b64encode(buf.read()).decode('utf-8'))
+        plt.close(fig)
 
-    ax1.set_xlabel('Время')
-    ax1.set_ylabel('Значения')
-    ax1.set_title('График времени')
-
-    # Устанавливаем легенду вне графика
-    ax1.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0.)
-
-    plt.tight_layout()
-
-    # Сохранение первого графика в буфер
-    buf1 = io.BytesIO()
-    fig1.savefig(buf1, format="png")
-    buf1.seek(0)
-    img_str1 = base64.b64encode(buf1.getvalue()).decode("utf-8")
+# Теперь plot_images содержит список base64-строк для каждой группы графиков
 
     # Названия категорий
     categories = [
@@ -180,7 +215,6 @@ async def calculate(startValues=Form(...), minValues=Form(...), maxValues=Form(.
     img_str2 = base64.b64encode(buf2.getvalue()).decode("utf-8")
 
     # Закрытие фигур после сохранения
-    plt.close(fig1)
     plt.close(fig2)
 
     # Аппроксимация для каждого параметра
@@ -209,7 +243,7 @@ async def calculate(startValues=Form(...), minValues=Form(...), maxValues=Form(.
         equations.append(equation)
 
     return {
-        "image1": img_str1,
+        "image1": plot_images,
         "image2": img_str2,
         "equations": equations
     }

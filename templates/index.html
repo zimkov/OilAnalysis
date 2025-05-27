@@ -7,7 +7,75 @@
     <link rel="stylesheet" href="../static/styles.css">
     <title>Нефтеперерабатывающее предприятие</title>
 </head>
+<style>
+.spinner-border {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    vertical-align: -.125em;
+    border: .25em solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: .75s linear infinite spinner-border;
+}
 
+@keyframes spinner-border {
+    to { transform: rotate(360deg); }
+}
+
+.visually-hidden {
+    position: absolute!important;
+    width: 1px!important;
+    height: 1px!important;
+    padding: 0!important;
+    margin: -1px!important;
+    overflow: hidden!important;
+    clip: rect(0,0,0,0)!important;
+    white-space: nowrap!important;
+    border: 0!important;
+}
+
+.plot-container {
+    width: 700px;
+    height: 600px;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    scrollbar-width: thin;
+    scrollbar-color: #40425c #a5a8e7;
+    scroll-behavior: smooth;
+}
+
+.plot-group {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1rem;
+    background: white;
+}
+
+.plot-group h4 {
+    margin: 0 0 1rem 0;
+    color: #2c3e50;
+    font-size: 1.1rem;
+}
+
+.plot-image {
+    width: 100%;
+    max-width: 1000px;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.equation-header {
+    border-bottom: 2px solid #2980b9;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+</style>
 <body>
     <div class="title">
         <h1>Нефтеперерабатывающее предприятие</h1>
@@ -182,9 +250,11 @@
 
     <div style="width: 100%; text-align: center; margin-top: 10px;">
         <button id="calculate" style="height: 50px;">Вычислить результат</button>
+        
     </div>
     <h1 style="margin-top: 30px; margin-left: 20px">Последние результаты: </h1>
         <div id="results" style="text-align: center; margin-top: 20px;">
+            
                 <!-- Здесь будут отображаться графики -->
         </div>
     <script>
@@ -334,7 +404,14 @@
     </script>
     <script>
         document.getElementById("calculate").addEventListener("click", function() {
-            const formData = new FormData();
+            const btn = this; // Сохраняем ссылку на кнопку
+            const spinner = document.getElementById("spinner"); // Предполагаем что у вас есть элемент с id="spinner"
+    
+            // Блокируем кнопку и показываем спиннер
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Расчет...';
+            if(spinner) spinner.style.display = 'block';
+                const formData = new FormData();
 
             // Собираем значения L1-L15 (startValues) как числа
             const startValues = [];
@@ -408,6 +485,16 @@
                     };
                 }
 
+                // Формируем HTML для графиков
+                const plotsHTML = data.image1.map((imgBase64, index) => `
+                    <div class="plot-group">
+                        <h4>Группа графиков ${index + 1}</h4>
+                        <img src="data:image/png;base64,${imgBase64}" 
+                            alt="Графики группы ${index + 1}" 
+                            class="plot-image">
+                    </div>
+                `).join('');
+
                 // В части кода где формируем newResult
                 const equationsHTML = data.equations.map(eq => {
                     const formatted = formatEquation(eq);
@@ -422,7 +509,9 @@
                 // Форматируем новый результат
                 const newResult = `
                     <div class="result-item">
-                        <img src="data:image/png;base64,${data.image1}" alt="График 1">
+                        <div class="plot-container">
+                            ${plotsHTML}
+                         </div>
                         <img src="data:image/png;base64,${data.image2}" alt="График 2">
                         <div class="equation-list">
                             <h3 style="margin-top:0; color: #2980b9;">Аппроксимирующие уравнения</h3>
@@ -448,8 +537,14 @@
                 // Сохраняем обновленный список в localStorage
                 localStorage.setItem("savedResults", JSON.stringify(savedResults));
             })
-            .catch(error => console.error('Ошибка:', error));
-        });
+            .catch(error => console.error('Ошибка:', error))
+            .finally(() => {
+                    // Восстанавливаем кнопку в любом случае
+                    btn.disabled = false;
+                    btn.innerHTML = 'Рассчитать';
+                    if(spinner) spinner.style.display = 'none';
+                    });
+            });
     </script>
     <script>
         document.getElementById("saveValuesToJson").addEventListener("click", function saveToJson() {
