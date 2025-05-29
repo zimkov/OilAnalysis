@@ -66,6 +66,7 @@ async def calculate(startValues=Form(...), minValues=Form(...), maxValues=Form(.
     
     # 5. Финальный расчет с оптимизированными коэффициентами
     final_solution = calc.calculate(time_intervals)
+    # final_solution = initial_solution
 
 # Список всех параметров с названиями
     params = [
@@ -238,7 +239,7 @@ async def calculate(startValues=Form(...), minValues=Form(...), maxValues=Form(.
         # 3. Форматирование уравнения
         equation = (
             f"L{param_idx+1}(t) = "
-            f"{a:.2e}t³ + {b:.2e}t² + {c:.2e}t + {d:.2e}"
+            f"{round(a, 4)}t³ + {round(b, 4)}t² + {round(c, 4)}t + {round(d, 4)}"
         )
         equations.append(equation)
 

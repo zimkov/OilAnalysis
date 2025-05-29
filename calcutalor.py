@@ -113,12 +113,12 @@ class Calculator:
 
         # Расчет производных с ограничениями
         dL1_dx = -(self.functions[0].calc(L10_t) * self.functions[1].calc(L11_t) * self.functions[2].calc(L14_t))
-        dL1_dx = np.clip(dL1_dx, 0, max_derivatives[0])
+        
 
         dL2_dx = self.functions[3].calc(L3_t) * self.functions[4].calc(L7_t) * self.functions[5].calc(L8_t)* \
                  self.functions[6].calc(L9_t) * self.functions[7].calc(L13_t) - (self.functions[8].calc(L10_t) *
                  self.functions[9].calc(L11_t) * self.functions[10].calc(L14_t) * self.functions[11].calc(L15_t) * q1 + q2 + q3 + q4)
-        dL2_dx = np.clip(dL2_dx, 0, max_derivatives[1])
+        
 
         dL3_dx = self.functions[12].calc(L1_t) - (self.functions[13].calc(L15_t) * q1 + q3 + q4)
 
@@ -157,19 +157,21 @@ class Calculator:
         dL15_dx = self.functions[51].calc(L2_t) * self.functions[52].calc(L3_t) * self.functions[53].calc(L13_t) * \
                   self.functions[54].calc(L14_t) * q1 + q2
         
-        dL3_dx = np.clip(dL3_dx, 0, max_derivatives[2])
-        dL4_dx = np.clip(dL4_dx, 0, max_derivatives[3])
-        dL5_dx = np.clip(dL5_dx, 0, max_derivatives[4])
-        dL6_dx = np.clip(dL6_dx, 0, max_derivatives[5])
-        dL7_dx = np.clip(dL7_dx, 0, max_derivatives[6])
-        dL8_dx = np.clip(dL8_dx, 0, max_derivatives[7])
-        dL9_dx = np.clip(dL9_dx, 0, max_derivatives[8])
-        dL10_dx = np.clip(dL10_dx, 0, max_derivatives[9])
-        dL11_dx = np.clip(dL11_dx, 0, max_derivatives[10])
-        dL12_dx = np.clip(dL12_dx, 0, max_derivatives[11])
-        dL13_dx = np.clip(dL13_dx, 0, max_derivatives[12])
-        dL14_dx = np.clip(dL14_dx, 0, max_derivatives[13])
-        dL15_dx = np.clip(dL15_dx, 0, max_derivatives[14])
+        # dL1_dx = np.clip(dL1_dx, 0, max_derivatives[0])
+        # dL2_dx = np.clip(dL2_dx, 0, max_derivatives[1])
+        # dL3_dx = np.clip(dL3_dx, 0, max_derivatives[2])
+        # dL4_dx = np.clip(dL4_dx, 0, max_derivatives[3])
+        # dL5_dx = np.clip(dL5_dx, 0, max_derivatives[4])
+        # dL6_dx = np.clip(dL6_dx, 0, max_derivatives[5])
+        # dL7_dx = np.clip(dL7_dx, 0, max_derivatives[6])
+        # dL8_dx = np.clip(dL8_dx, 0, max_derivatives[7])
+        # dL9_dx = np.clip(dL9_dx, 0, max_derivatives[8])
+        # dL10_dx = np.clip(dL10_dx, 0, max_derivatives[9])
+        # dL11_dx = np.clip(dL11_dx, 0, max_derivatives[10])
+        # dL12_dx = np.clip(dL12_dx, 0, max_derivatives[11])
+        # dL13_dx = np.clip(dL13_dx, 0, max_derivatives[12])
+        # dL14_dx = np.clip(dL14_dx, 0, max_derivatives[13])
+        # dL15_dx = np.clip(dL15_dx, 0, max_derivatives[14])
 
         return [dL1_dx, dL2_dx, dL3_dx, dL4_dx, dL5_dx, 
                 dL6_dx, dL7_dx, dL8_dx, dL9_dx, dL10_dx, 
