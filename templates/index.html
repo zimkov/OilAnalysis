@@ -381,10 +381,12 @@
             }
 
             for (let i = 1; i <= 15; i++) {
-                let randVal = getRandomValue().toFixed(2);
+                let randVal = (getRandomValue() * 0.8 + 0.2).toFixed(2);
                 document.getElementById(`L${i}`).value = randVal;
-                document.getElementById(`L${i}_min`).value = randVal / 1.25;
-                document.getElementById(`L${i}_max`).value = randVal * 1.25;
+                //document.getElementById(`L${i}_min`).value = randVal / 1.25;
+                //document.getElementById(`L${i}_max`).value = randVal * 1.25;
+                document.getElementById(`L${i}_min`).value = 0.2;
+                document.getElementById(`L${i}_max`).value = 1;
             }
 
             for (let i = 1; i <= 4; i++) {

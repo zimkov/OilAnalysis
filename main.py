@@ -60,13 +60,13 @@ async def calculate(startValues=Form(...), minValues=Form(...), maxValues=Form(.
     time_intervals = np.linspace(0, 1, 11)
     initial_solution = calc.calculate(time_intervals)
     
-    # 4. Оптимизация коэффициентов!
-    target = np.clip(initial_solution, minValues_vals, maxValues_vals)  # Целевые значения
-    optimization_result = calc.adjust_coefficients(target)  # Вызов оптимизации
+    # # 4. Оптимизация коэффициентов!
+    # target = np.clip(initial_solution, minValues_vals, maxValues_vals)  # Целевые значения
+    # optimization_result = calc.adjust_coefficients(target)  # Вызов оптимизации
     
-    # 5. Финальный расчет с оптимизированными коэффициентами
-    final_solution = calc.calculate(time_intervals)
-    # final_solution = initial_solution
+    # # 5. Финальный расчет с оптимизированными коэффициентами
+    # final_solution = calc.calculate(time_intervals)
+    final_solution = initial_solution
 
 # Список всех параметров с названиями
     params = [
